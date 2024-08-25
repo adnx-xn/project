@@ -1,7 +1,9 @@
-import './App.css';
+import './AppLight.css';
+import './AppDark.css';
 import {
   BrowserRouter, Routes, Route,
 } from 'react-router-dom';
+import { useState } from 'react';
 
 import Home from './components/Home';
 import Navbar from './components/Navbar';
@@ -13,15 +15,28 @@ import ProductDetail from './components/Singleproduct';
 import Cart from './components/Cart';
 import { CartProvider } from './components/CartContext';
 import Contact from './components/Contact';
+
+
+
+
 function App() {
 
+  const [isDarkMode, setIsDarkMode] = useState(false);
 
 
+  const Theme = () => {
+    setIsDarkMode(!isDarkMode);
+   };
 
 
 
   return (<> <div className='mainn'>
-    <CartProvider>
+
+<div className={isDarkMode ? 'dark-theme' : 'light-theme'}>
+   <button onClick={Theme}>
+     Switch to {isDarkMode ? 'Light' : 'Dark'} Mode
+   </button>
+   <CartProvider>
     <BrowserRouter>
     <Navbar/>
     <Routes>
@@ -39,6 +54,11 @@ function App() {
     </BrowserRouter>
    
     </CartProvider>
+ </div>
+
+
+
+   
     </div>
     </> );
 }
